@@ -1,4 +1,5 @@
 # language: en
+@all
 Feature: Check service available
 
   Scenario: Service is available
