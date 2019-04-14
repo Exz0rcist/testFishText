@@ -8,11 +8,10 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/features",
-        glue = "com.cardpay.test.java.testfish",
-        tags = "@all",
-        dryRun = false,
-        strict = false,
-        snippets = SnippetType.UNDERSCORE
+        tags = "@all"
+//        dryRun = false,
+//        strict = false,
+//        snippets = SnippetType.UNDERSCORE
 )
 
 
