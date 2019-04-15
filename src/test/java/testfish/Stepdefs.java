@@ -26,14 +26,12 @@ public class Stepdefs {
 
 
     public String getStatus(JsonPath jsonPath){
+        System.out.println(jsonPath.getString("status"));
+        System.out.println(jsonPath.getString("errorCode"));
         return jsonPath.getString("status");
 
     }
 
-    public int getSentence(JsonPath jsonPath){
-        return 0;
-
-    }
 
 
     @When("^User send request to \"([^\"]*)\"$")
@@ -44,7 +42,7 @@ public class Stepdefs {
             Assert.assertEquals(getStatus(response.jsonPath()), "success");
         }
         else{
-            response = get(String.format( "%s?type=%s&number=%d",arg1,typeOfParameter, sentence));
+            response = get(String.format( "%s?type=%s&number=%d",arg1,typeOfParameter, number));
             Assert.assertEquals(getStatus(response.jsonPath()), "success");
         }
 
@@ -59,13 +57,14 @@ public class Stepdefs {
 
     @Then("User get {int} {string}")
     public void user_get(Integer int1, String typeofrequest) {
-        int count = 0;
+        int counter = 0;
         sentence = int1;
-        String spl = "";
-        if (typeofrequest.equals("sentences")){
-            count = StringUtils.countMatches(response.jsonPath().getString("text"),".");
+        if (typeofrequest.equals("sentences")) {
+            counter = StringUtils.countMatches(response.jsonPath().getString("text"), '.');
+            counter += StringUtils.countMatches(response.jsonPath().getString("text"), '!');
+            counter += StringUtils.countMatches(response.jsonPath().getString("text"), '?');
         }
-        Assert.assertEquals(sentence, count);
+        Assert.assertEquals(sentence, counter);
     }
 
     @Given("type of parameter request {string}")
@@ -80,6 +79,10 @@ public class Stepdefs {
 
     }
 
+    @Then("User get error code {int}")
+    public void user_get_error_code(Integer int1) {
+        Assert.assertEquals(response.jsonPath().getString("errorCode"), int1.toString());
+    }
 
 
 

@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/test/features",
-        tags = "@all"
+        tags = "@sentence"
 //        dryRun = false,
 //        strict = false,
 //        snippets = SnippetType.UNDERSCORE
